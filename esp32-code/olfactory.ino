@@ -1,7 +1,4 @@
-int scentPin1 = 25;
-int scentPin2 = 26;
-int scentPin3 = 27;
-int scentPin4 = 33;
+int scentPins[] = {25, 26, 27, 33};
 
 int bitRate = 115200;
 
@@ -10,17 +7,16 @@ void setup() {
   Serial.begin(bitRate);
 
   // Pin Setup
-  pinMode(scentPin1, OUPUT);
-  pinMode(scentPin2, OUPUT);
-  pinMode(scentPin3, OUPUT);
-  pinMode(scentPin4, OUPUT);
-  digitalWrite(scent, LOW);
+  for (int i = 0; i < sizeof(scentPins); i++) {
+    pinMode(scentPins[i], OUPUT);
+  }
 }
-// Turn on pin, wait 1 second, turn off pin
+// Turn on pin
 void activateScent(int scent) {
   digitalWrite(scent, HIGH);
 }
 
+// Turn off pin
 void deactivateScent(int scent) {
   digitalWrite(scent, LOW);
 }
@@ -28,19 +24,19 @@ void deactivateScent(int scent) {
 // the loop routine runs over and over again forever:
 void loop() {
   if (Serial.available()) {
-    // Format "[on/off]:[int scent]"
+    // Format "[on/off]:[int scent 1-4]"
     String command = Serial.readStringUntil('\n');
     command.trim();
     
     int separator = command.indexOf(':');
     String action = command.substring(0, separator);
-    int scent = command.substring(separator + 1).toInt();
+    int scent = command.substring(separator + 1).toInt() - 1;
 
     if (action == "on") {
-      activateScent(scent);
+      activateScent(scentPins[scent]);
     }
     else if (action == "off") {
-      deactivateScent(scent);
+      deactivateScent(scentPins[scent]);
     }
   }
 }
