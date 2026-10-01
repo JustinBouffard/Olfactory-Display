@@ -6,10 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "OlfactoryGameGameMode.generated.h"
 
-/**
- *  Simple GameMode for a first person game
- */
-UCLASS(abstract)
+UCLASS(minimalapi)
 class AOlfactoryGameGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
