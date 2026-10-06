@@ -7,8 +7,9 @@ void setup() {
   Serial.begin(bitRate);
 
   // Pin Setup
-  for (int i = 0; i < sizeof(scentPins); i++) {
-    pinMode(scentPins[i], OUPUT);
+  for (int i = 0; i < 4; i++) {
+    pinMode(scentPins[i], OUTPUT);
+    digitalWrite(scentPins[i], LOW);
   }
 }
 // Turn on pin
@@ -32,11 +33,19 @@ void loop() {
     String action = command.substring(0, separator);
     int scent = command.substring(separator + 1).toInt() - 1;
 
+
+    if (scent < 0 || scent > 3) {
+      Serial.println("Invalid scent number. Please use 1-4.");
+      return;
+    }
     if (action == "on") {
       activateScent(scentPins[scent]);
     }
     else if (action == "off") {
       deactivateScent(scentPins[scent]);
+    }
+    else {
+      Serial.println("Invalid action. Please use 'on' or 'off'.");
     }
   }
 }
