@@ -2,14 +2,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "FPCharacter.generated.h"
 #include "InputActionValue.h"
+#include "FPCharacter.generated.h"
 
 class UCameraComponent;
 class UInputAction;
 class UInputMappingContext;
 
-UCLASS()
+UCLASS(Blueprintable)
 class OLFACTORYGAME_API AFPCharacter : public ACharacter
 {
 	GENERATED_BODY()

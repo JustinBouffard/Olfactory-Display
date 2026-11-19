@@ -61,6 +61,6 @@ void AFPCharacter::Look(const FInputActionValue& Value)
 {
 	const FVector2D Axis = Value.Get<FVector2D>();
 	AddControllerYawInput(Axis.X);
-	AddControllerPitchInput(Axis.Y);
+	AddControllerPitchInput(-Axis.Y);
 }
 
